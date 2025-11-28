@@ -17,3 +17,10 @@ mv assets/images/sticker-smash-assets/images/* assets/images
 rm -rf assets/images/sticker-smash-assets/images
 rm -rf assets/images/sticker-smash-assets
 ```
+
+Resetting project
+
+```bash
+npm run reset-project
+# Then select option to move files to app-example folder instead of deleting files
+```
