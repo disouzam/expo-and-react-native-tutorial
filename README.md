@@ -24,3 +24,9 @@ Resetting project
 npm run reset-project
 # Then select option to move files to app-example folder instead of deleting files
 ```
+
+Run the app on mobile and web
+
+```bash
+npx expo start
+```
