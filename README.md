@@ -101,7 +101,7 @@ const styles = StyleSheet.create({
 Create "(tabs)" subdirectory and adjust files accordingly
 
 ```bash
-mkdir "app/(tabs)"
+mkdir "app/(tabs)" # Assuming you are in StickerSmash folder and not in repo's root folder. Otherwise, do `cd StickerSmash` first
 mv app/index.tsx "app/(tabs)"
 mv app/about.tsx "app/(tabs)"
 cp app/_layout.tsx "app/(tabs)"
@@ -130,4 +130,84 @@ export default function TabLayout() {
   );
 }
 """ > "app/(tabs)/_layout.tsx"
+```
+
+# Chapter 3: Build a screen
+
+Installed required dependencies
+
+```bash
+npx expo install expo-image
+```
+
+Create folder to organize components
+
+```bash
+mkdir components # Assuming you are in StickerSmash folder and not in repo's root folder. Otherwise, do `cd StickerSmash` first
+```
+
+Add new component ImageViewer:
+
+```bash
+echo """import { ImageSourcePropType, StyleSheet } from 'react-native';
+import { Image } from 'expo-image';
+
+type Props = {
+  imgSource: ImageSourcePropType;
+};
+
+export default function ImageViewer({ imgSource }: Props) {
+  return <Image source={imgSource} style={styles.image} />;
+}
+
+const styles = StyleSheet.create({
+  image: {
+    width: 320,
+    height: 440,
+    borderRadius: 18,
+  },
+});""" > components/ImageViewer.tsx
+```
+
+Add new component Button:
+
+```bash
+echo """import { StyleSheet, View, Pressable, Text } from 'react-native';
+
+type Props = {
+  label: string;
+};
+
+export default function Button({ label }: Props) {
+  return (
+    <View style={styles.buttonContainer}>
+      <Pressable style={styles.button} onPress={() => alert('You pressed a button.')}>
+        <Text style={styles.buttonLabel}>{label}</Text>
+      </Pressable>
+    </View>
+  );
+}
+
+const styles = StyleSheet.create({
+  buttonContainer: {
+    width: 320,
+    height: 68,
+    marginHorizontal: 20,
+    alignItems: 'center',
+    justifyContent: 'center',
+    padding: 3,
+  },
+  button: {
+    borderRadius: 10,
+    width: '100%',
+    height: '100%',
+    alignItems: 'center',
+    justifyContent: 'center',
+    flexDirection: 'row',
+  },
+  buttonLabel: {
+    color: '#fff',
+    fontSize: 16,
+  },
+});""" > components/Button.tsx
 ```
