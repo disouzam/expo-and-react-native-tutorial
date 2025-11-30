@@ -30,3 +30,104 @@ Run the app on mobile and web
 ```bash
 npx expo start
 ```
+
+# Chapter 2: Add navigation
+
+Added an about screen
+
+```bash
+# [Add a new screen to the stack](https://docs.expo.dev/tutorial/add-navigation/#add-a-new-screen-to-the-stack)
+echo """import { Text, View, StyleSheet } from 'react-native';
+
+export default function AboutScreen() {
+  return (
+    <View style={styles.container}>
+      <Text style={styles.text}>About screen</Text>
+    </View>
+  );
+}
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: '#25292e',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  text: {
+    color: '#fff',
+  },
+});
+""" > app/about.tsx
+```
+
+
+Add a not-found route
+
+```bash
+echo """import { View, StyleSheet } from 'react-native';
+import { Link, Stack } from 'expo-router';
+
+export default function NotFoundScreen() {
+  return (
+    <>
+      <Stack.Screen options={{ title: 'Oops! Not Found' }} />
+      <View style={styles.container}>
+        <Link href='/' style={styles.button}>
+          Go back to Home screen!
+        </Link>
+      </View>
+    </>
+  );
+}
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: '#25292e',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+
+  button: {
+    fontSize: 20,
+    textDecorationLine: 'underline',
+    color: '#fff',
+  },
+});
+""" > app/+not-found.tsx
+```
+
+Create "(tabs)" subdirectory and adjust files accordingly
+
+```bash
+mkdir "app/(tabs)"
+mv app/index.tsx "app/(tabs)"
+mv app/about.tsx "app/(tabs)"
+cp app/_layout.tsx "app/(tabs)"
+
+
+echo """import { Stack } from 'expo-router';
+
+export default function RootLayout() {
+  return (
+    <Stack>
+      <Stack.Screen name='(tabs)' options={{ headerShown: false }} />
+    </Stack>
+  );
+}
+""" > "app/_layout.tsx"
+
+
+echo """import { Tabs } from 'expo-router';
+
+export default function TabLayout() {
+  return (
+    <Tabs>
+      <Tabs.Screen name='index' options={{ title: 'Home' }} />
+      <Tabs.Screen name='about' options={{ title: 'About' }} />
+    </Tabs>
+  );
+}
+""" > "app/(tabs)/_layout.tsx"
+```
