@@ -211,3 +211,4 @@ const styles = StyleSheet.create({
   },
 });""" > components/Button.tsx
 ```
+# Chapter 4: Use an image picker
