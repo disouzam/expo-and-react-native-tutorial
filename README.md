@@ -131,3 +131,11 @@ export default function TabLayout() {
 }
 """ > "app/(tabs)/_layout.tsx"
 ```
+
+# Chapter 3: Build a screen
+
+Installed required dependencies
+
+```bash
+npx expo install expo-image
+```
