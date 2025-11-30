@@ -101,7 +101,7 @@ const styles = StyleSheet.create({
 Create "(tabs)" subdirectory and adjust files accordingly
 
 ```bash
-mkdir "app/(tabs)"
+mkdir "app/(tabs)" # Assuming you are in StickerSmash folder and not in repo's root folder. Otherwise, do `cd StickerSmash` first
 mv app/index.tsx "app/(tabs)"
 mv app/about.tsx "app/(tabs)"
 cp app/_layout.tsx "app/(tabs)"
@@ -138,4 +138,33 @@ Installed required dependencies
 
 ```bash
 npx expo install expo-image
+```
+
+Create folder to organize components
+
+```bash
+mkdir components # Assuming you are in StickerSmash folder and not in repo's root folder. Otherwise, do `cd StickerSmash` first
+```
+
+Add new component ImageViewer:
+
+```bash
+echo """import { ImageSourcePropType, StyleSheet } from 'react-native';
+import { Image } from 'expo-image';
+
+type Props = {
+  imgSource: ImageSourcePropType;
+};
+
+export default function ImageViewer({ imgSource }: Props) {
+  return <Image source={imgSource} style={styles.image} />;
+}
+
+const styles = StyleSheet.create({
+  image: {
+    width: 320,
+    height: 440,
+    borderRadius: 18,
+  },
+});""" > components/ImageViewer.tsx
 ```
