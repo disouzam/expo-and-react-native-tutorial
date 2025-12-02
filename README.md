@@ -216,3 +216,5 @@ const styles = StyleSheet.create({
 ```bash
 npx expo install expo-image-picker
 ```
+
+As most of other actions in this chapter involved editing existing files, they were not scripted but they can be checked directly in Expo website at [Use an image picker](https://docs.expo.dev/tutorial/image-picker/)
