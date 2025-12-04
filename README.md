@@ -218,3 +218,214 @@ npx expo install expo-image-picker
 ```
 
 As most of other actions in this chapter involved editing existing files, they were not scripted but they can be checked directly in Expo website at [Use an image picker](https://docs.expo.dev/tutorial/image-picker/)
+
+# Chapter 5: Create a modal
+
+Create a component to display a circular button:
+
+```bash
+echo """import { View, Pressable, StyleSheet } from 'react-native';
+import MaterialIcons from '@expo/vector-icons/MaterialIcons';
+
+type Props = {
+  onPress: () => void;
+};
+
+export default function CircleButton({ onPress }: Props) {
+  return (
+    <View style={styles.circleButtonContainer}>
+      <Pressable style={styles.circleButton} onPress={onPress}>
+        <MaterialIcons name='add' size={38} color='#25292e' />
+      </Pressable>
+    </View>
+  );
+}
+
+const styles = StyleSheet.create({
+  circleButtonContainer: {
+    width: 84,
+    height: 84,
+    marginHorizontal: 60,
+    borderWidth: 4,
+    borderColor: '#ffd33d',
+    borderRadius: 42,
+    padding: 3,
+  },
+  circleButton: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    borderRadius: 42,
+    backgroundColor: '#fff',
+  },
+});""" > components/CircleButton.tsx
+```
+
+Create a component to display a button with an icon
+
+```bash
+echo """import { Pressable, StyleSheet, Text } from 'react-native';
+import MaterialIcons from '@expo/vector-icons/MaterialIcons';
+
+type Props = {
+  icon: keyof typeof MaterialIcons.glyphMap;
+  label: string;
+  onPress: () => void;
+};
+
+export default function IconButton({ icon, label, onPress }: Props) {
+  return (
+    <Pressable style={styles.iconButton} onPress={onPress}>
+      <MaterialIcons name={icon} size={24} color='#fff' />
+      <Text style={styles.iconButtonLabel}>{label}</Text>
+    </Pressable>
+  );
+}
+
+const styles = StyleSheet.create({
+  iconButton: {
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  iconButtonLabel: {
+    color: '#fff',
+    marginTop: 12,
+  },
+});"""> components/IconButton.tsx
+```
+
+Create a component to pick an emoji:
+
+```bash
+echo """import { Modal, View, Text, Pressable, StyleSheet } from 'react-native';
+import { PropsWithChildren } from 'react';
+import MaterialIcons from '@expo/vector-icons/MaterialIcons';
+
+type Props = PropsWithChildren<{
+  isVisible: boolean;
+  onClose: () => void;
+}>;
+
+export default function EmojiPicker({ isVisible, children, onClose }: Props) {
+  return (
+    <View>
+    <Modal animationType='slide' transparent={true} visible={isVisible}>
+      <View style={styles.modalContent}>
+        <View style={styles.titleContainer}>
+          <Text style={styles.title}>Choose a sticker</Text>
+          <Pressable onPress={onClose}>
+            <MaterialIcons name='close' color='#fff' size={22} />
+          </Pressable>
+        </View>
+        {children}
+      </View>
+    </Modal>
+    </View>
+  );
+}
+
+const styles = StyleSheet.create({
+  modalContent: {
+    height: '25%',
+    width: '100%',
+    backgroundColor: '#25292e',
+    borderTopRightRadius: 18,
+    borderTopLeftRadius: 18,
+    position: 'absolute',
+    bottom: 0,
+  },
+  titleContainer: {
+    height: '16%',
+    backgroundColor: '#464C55',
+    borderTopRightRadius: 10,
+    borderTopLeftRadius: 10,
+    paddingHorizontal: 20,
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+  },
+  title: {
+    color: '#fff',
+    fontSize: 16,
+  },
+});""" > components/EmojiPicker.tsx
+```
+
+Create a component to generate a list of emojis:
+
+```bash
+echo """import { useState } from 'react';
+import { ImageSourcePropType, StyleSheet, FlatList, Platform, Pressable } from 'react-native';
+import { Image } from 'expo-image';
+
+type Props = {
+  onSelect: (image: ImageSourcePropType) => void;
+  onCloseModal: () => void;
+};
+
+export default function EmojiList({ onSelect, onCloseModal }: Props) {
+  const [emoji] = useState<ImageSourcePropType[]>([
+    require('../assets/images/emoji1.png'),
+    require('../assets/images/emoji2.png'),
+    require('../assets/images/emoji3.png'),
+    require('../assets/images/emoji4.png'),
+    require('../assets/images/emoji5.png'),
+    require('../assets/images/emoji6.png'),
+  ]);
+
+  return (
+    <FlatList
+      horizontal
+      showsHorizontalScrollIndicator={Platform.OS === 'web'}
+      data={emoji}
+      contentContainerStyle={styles.listContainer}
+      renderItem={({ item, index }) => (
+        <Pressable
+          onPress={() => {
+            onSelect(item);
+            onCloseModal();
+          }}>
+          <Image source={item} key={index} style={styles.image} />
+        </Pressable>
+      )}
+    />
+  );
+}
+
+const styles = StyleSheet.create({
+  listContainer: {
+    borderTopRightRadius: 10,
+    borderTopLeftRadius: 10,
+    paddingHorizontal: 20,
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+  },
+  image: {
+    width: 100,
+    height: 100,
+    marginRight: 20,
+  },
+});""" > components/EmojiList.tsx
+```
+
+Create a component to display an Emoji sticker
+
+```bash
+echo """import { ImageSourcePropType, View } from 'react-native';
+import { Image } from 'expo-image';
+
+type Props = {
+  imageSize: number;
+  stickerSource: ImageSourcePropType;
+};
+
+export default function EmojiSticker({ imageSize, stickerSource }: Props) {
+  return (
+    <View style={{ top: -350 }}>
+      <Image source={stickerSource} style={{ width: imageSize, height: imageSize }} />
+    </View>
+  );
+}
+""" > components/EmojiSticker.tsx
+```
