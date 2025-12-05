@@ -445,3 +445,23 @@ Installing required libraries to take screenshots and manipulate files
 npx expo install react-native-view-shot 
 npx expo install expo-media-library
 ```
+
+# Chapter 8: Handle platform differences
+
+From Expo tutorial documentation:
+
+> Android, iOS, and the web have different capabilities. In our case, both Android and iOS can capture a screenshot with the react-native-view-shot library. However, web browsers cannot.
+
+> [...]
+
+> To capture a screenshot on the web and save it as an image, we'll use a third-party library called dom-to-image. It takes a screenshot of any DOM node and turns it into a vector (SVG) or raster (PNG or JPEG) image.
+
+```bash
+npm install dom-to-image
+```
+
+Fix dom-to-image Typescript module error
+
+```bash
+echo """declare module 'dom-to-image';""" > types.d.ts
+```
