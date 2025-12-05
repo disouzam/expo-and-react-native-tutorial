@@ -1,4 +1,4 @@
-import { ImageSourcePropType, View } from "react-native";
+import { ImageSourcePropType } from "react-native";
 import Animated, {
   useAnimatedStyle,
   useSharedValue,
@@ -53,7 +53,7 @@ export default function EmojiSticker({ imageSize, stickerSource }: Props) {
 
   return (
     <GestureDetector gesture={drag}>
-      <Animated.View style={[containerStyle,{ top: -400, left: 25 }]}>
+      <Animated.View style={[containerStyle, { top: -400, left: 25 }]}>
         <GestureDetector gesture={doubleTap}>
           <Animated.Image
             source={stickerSource}
