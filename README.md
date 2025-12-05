@@ -429,3 +429,19 @@ export default function EmojiSticker({ imageSize, stickerSource }: Props) {
 }
 """ > components/EmojiSticker.tsx
 ```
+
+# Chapter 6: Add gestures
+
+There was no file creation neither library installs in this chapter so all the changes can be seen in the commit history or in the following links:
+
+- [Add gestures](https://docs.expo.dev/tutorial/gestures/)
+- [How to add gestures to an Expo App | Universal App tutorial #6](https://www.youtube.com/watch?v=0q48LLvTGDU)
+
+# Chatper 7: Take a screenshot
+
+Installing required libraries to take screenshots and manipulate files
+
+```bash
+npx expo install react-native-view-shot 
+npx expo install expo-media-library
+```
