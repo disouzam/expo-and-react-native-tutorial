@@ -459,3 +459,9 @@ From Expo tutorial documentation:
 ```bash
 npm install dom-to-image
 ```
+
+Fix dom-to-image Typescript module error
+
+```bash
+echo """declare module 'dom-to-image';""" > types.d.ts
+```
