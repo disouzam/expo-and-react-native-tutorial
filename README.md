@@ -465,3 +465,5 @@ Fix dom-to-image Typescript module error
 ```bash
 echo """declare module 'dom-to-image';""" > types.d.ts
 ```
+
+# Chapter 9: Configure status bar, splash screen and app icon
